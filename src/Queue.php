@@ -67,9 +67,9 @@ abstract class Queue extends Component
      */
     public function init()
     {
-//        $this->serializer = __NAMESPACE__ . "\\" . get_class(new PhpSerializer());
+        $serializer = __NAMESPACE__ . "\\" . get_class(new PhpSerializer());
         parent::init();
-        $this->serializer = Instance::ensure($this->serializer, __NAMESPACE__ . "\\" . get_class(new Serializer()));
+        $this->serializer = Instance::ensure($serializer, 'zhuravljov\yii\queue\serializers\Serializer');
     }
 
     /**
