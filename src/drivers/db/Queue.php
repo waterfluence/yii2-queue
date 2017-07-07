@@ -54,18 +54,13 @@ class Queue extends CliQueue
      */
     public $commandClass;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
-    }
-
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
+        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
         $this->db = Instance::ensure($this->db, __NAMESPACE__ . "\\" . get_class(new Conncection()));
         $this->mutex = Instance::ensure($this->mutex, __NAMESPACE__ . "\\" . get_class(new Mutex));
     }

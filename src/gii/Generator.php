@@ -24,9 +24,9 @@ class Generator extends \yii\gii\Generator
     public $ns = 'app\jobs';
     public $baseClass;
 
-    public function __construct()
+    public function init()
     {
-        parent::__construct();
+        parent::init();
         $this->baseClass = __NAMESPACE__ . "\\" . get_class(new Object());
     }
 

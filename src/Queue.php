@@ -62,17 +62,12 @@ abstract class Queue extends Component
     private $pushDelay = 0;
     private $pushPriority;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->serializer = __NAMESPACE__ . "\\" . get_class(new PhpSerializer());
-    }
-
     /**
      * @inheritdoc
      */
     public function init()
     {
+//        $this->serializer = __NAMESPACE__ . "\\" . get_class(new PhpSerializer());
         parent::init();
         $this->serializer = Instance::ensure($this->serializer, __NAMESPACE__ . "\\" . get_class(new Serializer()));
     }

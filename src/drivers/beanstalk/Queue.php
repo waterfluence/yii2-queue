@@ -43,10 +43,10 @@ class Queue extends CliQueue
      */
     public $commandClass;
 
-    public function __construct()
+    public function init()
     {
         $this->commandClass =  = __NAMESPACE__ . "\\" . get_class(new Command());
-        parent::__construct();
+        parent::init();
     }
 
     /**

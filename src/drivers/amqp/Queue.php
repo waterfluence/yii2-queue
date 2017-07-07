@@ -45,18 +45,13 @@ class Queue extends CliQueue
      */
     private $channel;
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->commandClass  = __NAMESPACE__ . "\\" . get_class(new Command());
-    }
-
     /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
+        $this->commandClass  = __NAMESPACE__ . "\\" . get_class(new Command());
         $class = __NAMESPACE__ . "\\" . get_class(new BaseApp());
         Event::on($class, BaseApp::EVENT_AFTER_REQUEST, function () {
             $this->close();
