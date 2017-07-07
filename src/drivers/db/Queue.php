@@ -55,14 +55,23 @@ class Queue extends CliQueue
     public $commandClass;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
-        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
-        $this->db = Instance::ensure($this->db, __NAMESPACE__ . "\\" . get_class(new Conncection()));
-        $this->mutex = Instance::ensure($this->mutex, __NAMESPACE__ . "\\" . get_class(new Mutex));
+        $this->commandClass  = Command::className();
+        $this->db = Instance::ensure($this->db, Conncection::className());
+        $this->mutex = Instance::ensure($this->mutex, Mutex::className());
     }
 
     /**

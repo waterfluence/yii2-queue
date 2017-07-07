@@ -22,12 +22,15 @@ class Generator extends \yii\gii\Generator
     public $jobClass;
     public $properties;
     public $ns = 'app\jobs';
-    public $baseClass;
+    public $baseClass = Object::className();
 
-    public function init()
+    /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
     {
-        parent::init();
-        $this->baseClass = __NAMESPACE__ . "\\" . get_class(new Object());
+        return get_called_class();
     }
 
     /**
@@ -114,8 +117,7 @@ class Generator extends \yii\gii\Generator
         $params['ns'] = $this->ns;
         $params['baseClass'] = '\\' . ltrim($this->baseClass, '\\');
         $params['interfaces'] = [];
-        $class = __NAMESPACE__ . "\\" . get_class(new Job());
-        if (!is_a($this->baseClass, __NAMESPACE__ . "\\" . get_class($class), true)) {
+        if (!is_a($this->baseClass, Job::className(), true)) {
             $params['interfaces'][] = '\\' . $class;
         }
         $params['properties'] = array_unique(preg_split('/[\s,]+/', $this->properties, -1, PREG_SPLIT_NO_EMPTY));

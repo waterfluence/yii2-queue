@@ -27,6 +27,15 @@ class LogBehavior extends Behavior
     public $autoFlush = true;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function events()
@@ -41,21 +50,19 @@ class LogBehavior extends Behavior
 
     public function afterPush(PushEvent $event)
     {
-        Yii::info($this->getEventTitle($event) . ' pushed.', __NAMESPACE__ . "\\" . get_class(new Queue()));
+        Yii::info($this->getEventTitle($event) . ' pushed.', Queue::className());
     }
 
     public function beforeExec(JobEvent $event)
     {
-        $class = __NAMESPACE__ . "\\" . get_class(new Queue());
-        Yii::info($this->getEventTitle($event) . ' started.', $class);
-        Yii::beginProfile($this->getEventTitle($event), $class);
+        Yii::info($this->getEventTitle($event) . ' started.', Queue::className());
+        Yii::beginProfile($this->getEventTitle($event), Queue::className());
     }
 
     public function afterExec(JobEvent $event)
     {
-        $class = __NAMESPACE__ . "\\" . get_class(new Queue());
-        Yii::endProfile($this->getEventTitle($event), $class);
-        Yii::info($this->getEventTitle($event) . ' finished.', $class);
+        Yii::endProfile($this->getEventTitle($event), Queue::className());
+        Yii::info($this->getEventTitle($event) . ' finished.', Queue::className());
         if ($this->autoFlush) {
             Yii::getLogger()->flush(true);
         }
@@ -63,9 +70,8 @@ class LogBehavior extends Behavior
 
     public function afterExecError(ErrorEvent $event)
     {
-        $class = __NAMESPACE__ . "\\" . get_class(new Queue());
-        Yii::endProfile($this->getEventTitle($event), $class);
-        Yii::error($this->getEventTitle($event) . ' error ' . $event->error, $class);
+        Yii::endProfile($this->getEventTitle($event), Queue::className());
+        Yii::error($this->getEventTitle($event) . ' error ' . $event->error, Queue::className());
         if ($this->autoFlush) {
             Yii::getLogger()->flush(true);
         }

@@ -35,10 +35,19 @@ abstract class Queue extends BaseQueue implements BootstrapInterface
      */
     public $messageHandler;
 
+    /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
     public function init()
     {
         parent::init();
-        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+        $this->commandClass = Command::className();
     }
 
     /**

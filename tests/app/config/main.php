@@ -14,13 +14,13 @@ $config = [
     ],
     'components' => [
         'syncQueue' => [
-            'class' => __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\sync\Queue()),
+            'class' => \zhuravljov\yii\queue\sync\Queue::className(),
         ],
         'fileQueue' => [
-            'class' => __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\file\Queue()),
+            'class' => \zhuravljov\yii\queue\file\Queue::className(),
         ],
         'mysql' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\db\Connection()),
+            'class' => \yii\db\Connection::className(),
             'dsn' => 'mysql:host=localhost;dbname=yii2_queue_test',
             'username' => 'root',
             'password' => '',
@@ -30,50 +30,50 @@ $config = [
             ],
         ],
         'mysqlQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\db\Queue()),
+            'class' => \zhuravljov\yii\queue\db\Queue::className(),
             'db' => 'mysql',
             'mutex' => [
-                'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\mutex\MysqlMutex()),
+                'class' => \yii\mutex\MysqlMutex::className(),
                 'db' => 'mysql',
             ],
         ],
         'sqlite' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\db\Connection()),
+            'class' => \yii\db\Connection::className(),
             'dsn' => 'sqlite:@runtime/yii2_queue_test.db',
         ],
         'sqliteQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\db\Queue()),
+            'class' => \zhuravljov\yii\queue\db\Queue::className(),
             'db' => 'sqlite',
-            'mutex' =>  __NAMESPACE__ . "\\" . get_class(new \yii\mutex\FileMutex()),
+            'mutex' => \yii\mutex\FileMutex::className(),
         ],
         'pgsql' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\db\Connection()),
+            'class' => \yii\db\Connection::className(),
             'dsn' => 'pgsql:host=localhost;dbname=yii2_queue_test',
             'username' => 'postgres',
             'password' => '',
             'charset' => 'utf8',
         ],
         'pgsqlQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\db\Queue()),
+            'class' => \zhuravljov\yii\queue\db\Queue::className(),
             'db' => 'pgsql',
             'mutex' => [
-                'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\mutex\PgsqlMutex()),
+                'class' => \yii\mutex\PgsqlMutex::className(),
                 'db' => 'pgsql',
             ],
             'mutexTimeout' => 0,
         ],
         'redis' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \yii\redis\Connection()),
+            'class' => \yii\redis\Connection::className(),
             'database' => 2,
         ],
         'redisQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\redis\Queue()),
+            'class' => \zhuravljov\yii\queue\redis\Queue::className(),
         ],
         'amqpQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\amqp\Queue()),
+            'class' => \zhuravljov\yii\queue\amqp\Queue::className(),
         ],
         'beanstalkQueue' => [
-            'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\beanstalk\Queue()),
+            'class' => \zhuravljov\yii\queue\beanstalk\Queue::className(),
         ],
     ],
 ];
@@ -81,7 +81,7 @@ $config = [
 if (defined('GEARMAN_SUCCESS')) {
     $config['bootstrap'][] = 'gearmanQueue';
     $config['components']['gearmanQueue'] = [
-        'class' =>  __NAMESPACE__ . "\\" . get_class(new \zhuravljov\yii\queue\gearman\Queue()),
+        'class' => \zhuravljov\yii\queue\gearman\Queue::className(),
     ];
 }
 

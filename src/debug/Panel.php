@@ -33,13 +33,21 @@ class Panel extends \yii\debug\Panel implements ViewContextInterface
     }
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
-        $class = __NAMESPACE__ . "\\" . get_class(new Queue());
-        PushEvent::on($class, Queue::EVENT_AFTER_PUSH, function (PushEvent $event) {
+        PushEvent::on(Queue::className(), Queue::EVENT_AFTER_PUSH, function (PushEvent $event) {
             $this->_jobs[] = $this->getPushData($event);
         });
     }

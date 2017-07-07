@@ -63,13 +63,21 @@ abstract class Queue extends Component
     private $pushPriority;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
-        $serializer = __NAMESPACE__ . "\\" . get_class(new PhpSerializer());
         parent::init();
-        $this->serializer = Instance::ensure($serializer, 'zhuravljov\yii\queue\serializers\Serializer');
+        $this->serializer = Instance::ensure(PhpSerializer::className(), 'zhuravljov\yii\queue\serializers\Serializer');
     }
 
     /**
@@ -151,8 +159,7 @@ abstract class Queue extends Component
     {
         $job = $this->serializer->unserialize($message);
         if (!($job instanceof Job)) {
-            $class = __NAMESPACE__ . "\\" . get_class(new Job());
-            throw new InvalidParamException('Message must be ' . $class . ' object.');
+            throw new InvalidParamException('Message must be ' . Job::className() . ' object.');
         }
 
         $error = null;

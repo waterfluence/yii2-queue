@@ -32,6 +32,15 @@ abstract class Command extends Controller
     public $isolate = true;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+    
+    /**
      * @inheritdoc
      */
     public function options($actionID)
@@ -82,7 +91,7 @@ abstract class Command extends Controller
     {
         if ($this->useVerboseOption($action->id) && $this->verbose) {
             $this->queue->attachBehavior('verbose', [
-                'class' => __NAMESPACE__ . "\\" . get_class(new Verbose()),
+                'class' => Verbose::className(),
                 'command' => $this,
             ]);
         }

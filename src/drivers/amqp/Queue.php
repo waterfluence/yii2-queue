@@ -46,14 +46,22 @@ class Queue extends CliQueue
     private $channel;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
-        $this->commandClass  = __NAMESPACE__ . "\\" . get_class(new Command());
-        $class = __NAMESPACE__ . "\\" . get_class(new BaseApp());
-        Event::on($class, BaseApp::EVENT_AFTER_REQUEST, function () {
+        $this->commandClass = Command::className();
+        Event::on(BaseApp::className(), BaseApp::EVENT_AFTER_REQUEST, function () {
             $this->close();
         });
     }

@@ -34,6 +34,15 @@ class Behavior extends \yii\base\Behavior
     public $owner;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function events()

@@ -43,10 +43,19 @@ class Queue extends CliQueue
      */
     public $commandClass;
 
+    /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
     public function init()
     {
-        $this->commandClass =  = __NAMESPACE__ . "\\" . get_class(new Command());
         parent::init();
+        $this->commandClass = Command::className();
     }
 
     /**

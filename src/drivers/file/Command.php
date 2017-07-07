@@ -27,12 +27,21 @@ class Command extends CliCommand
     public $defaultAction = 'info';
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function actions()
     {
         return [
-            'info' => __NAMESPACE__ . "\\" . get_class(new InfoAction()),
+            'info' => InfoAction::className(),
         ];
     }
 
