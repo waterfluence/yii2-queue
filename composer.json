@@ -16,7 +16,7 @@
         "docs": "https://github.com/zhuravljov/yii2-queue/blob/master/docs/guide"
     },
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.10"
     },
     "require-dev": {
