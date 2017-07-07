@@ -70,7 +70,7 @@ class Queue extends CliQueue
     {
         parent::init();
         $this->commandClass  = Command::className();
-        $this->db = Instance::ensure($this->db, Conncection::className());
+        $this->db = Instance::ensure($this->db, Connection::className());
         $this->mutex = Instance::ensure($this->mutex, Mutex::className());
     }
 
