@@ -2,7 +2,7 @@
 return [
     'controllerMap' => [
         'mysql-migrate' => [
-            'class' => \yii\console\controllers\MigrateController::class,
+            'class' => \yii\console\controllers\MigrateController::className(),
             'db' => 'mysql',
             'migrationPath' => null,
             'migrationNamespaces' => [
@@ -10,7 +10,7 @@ return [
             ],
         ],
         'sqlite-migrate' => [
-            'class' => \yii\console\controllers\MigrateController::class,
+            'class' => \yii\console\controllers\MigrateController::className(),
             'db' => 'sqlite',
             'migrationPath' => null,
             'migrationNamespaces' => [
@@ -18,7 +18,7 @@ return [
             ],
         ],
         'pgsql-migrate' => [
-            'class' => \yii\console\controllers\MigrateController::class,
+            'class' => \yii\console\controllers\MigrateController::className(),
             'db' => 'pgsql',
             'migrationPath' => null,
             'migrationNamespaces' => [

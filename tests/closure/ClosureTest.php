@@ -47,7 +47,7 @@ class ClosureTest extends TestCase
         if (!$this->_queue) {
             $this->_queue = new Queue([
                 'handle' => false,
-                'as closure' => Behavior::class,
+                'as closure' => Behavior::className(),
             ]);
         }
         return $this->_queue;
