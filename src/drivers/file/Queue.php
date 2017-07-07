@@ -25,10 +25,11 @@ class Queue extends CliQueue
     public $path = '@runtime/queue';
     public $dirMode = 0755;
 
-    public $commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    public $commandClass;
 
     public function init()
     {
+        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
         parent::init();
         $this->path = Yii::getAlias($this->path);
         if (!is_dir($this->path)) {

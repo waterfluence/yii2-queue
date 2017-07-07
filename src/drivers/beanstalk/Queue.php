@@ -41,7 +41,13 @@ class Queue extends CliQueue
     /**
      * @var string command class name
      */
-    public $commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    public $commandClass;
+
+    public function __construct()
+    {
+        $this->commandClass =  = __NAMESPACE__ . "\\" . get_class(new Command());
+        parent::__construct();
+    }
 
     /**
      * Runs all jobs from queue.

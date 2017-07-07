@@ -34,10 +34,7 @@ class Queue extends CliQueue
     public $exchangeName = 'exchange';
     public $exchangeType = self::EXCHANGE_DIRECT;
 
-    /**
-     * @var string command class name
-     */
-    public $commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    public $commandClass;
 
     /**
      * @var AMQPStreamConnection
@@ -47,6 +44,12 @@ class Queue extends CliQueue
      * @var AMQPChannel
      */
     private $channel;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->commandClass  = __NAMESPACE__ . "\\" . get_class(new Command());
+    }
 
     /**
      * @inheritdoc

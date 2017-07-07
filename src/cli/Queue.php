@@ -24,7 +24,7 @@ abstract class Queue extends BaseQueue implements BootstrapInterface
     /**
      * @var string command class name
      */
-    public $commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    public $commandClass;
     /**
      * @var array of additional options of command
      */
@@ -34,6 +34,12 @@ abstract class Queue extends BaseQueue implements BootstrapInterface
      * @internal only for command
      */
     public $messageHandler;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    }
 
     /**
      * @return string command id

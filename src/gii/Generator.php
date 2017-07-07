@@ -22,7 +22,13 @@ class Generator extends \yii\gii\Generator
     public $jobClass;
     public $properties;
     public $ns = 'app\jobs';
-    public $baseClass = __NAMESPACE__ . "\\" . get_class(new Object());
+    public $baseClass;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->baseClass = __NAMESPACE__ . "\\" . get_class(new Object());
+    }
 
     /**
      * @inheritdoc

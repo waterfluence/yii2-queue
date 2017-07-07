@@ -33,13 +33,14 @@ class Queue extends CliQueue
     /**
      * @var string command class name
      */
-    public $commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
+    public $commandClass;
 
     /**
      * @inheritdoc
      */
     public function init()
     {
+        $this->commandClass = __NAMESPACE__ . "\\" . get_class(new Command());
         parent::init();
         $this->redis = Instance::ensure($this->redis, __NAMESPACE__ . "\\" . get_class(new Connection()));
     }
