@@ -25,11 +25,21 @@ class Queue extends CliQueue
     public $path = '@runtime/queue';
     public $dirMode = 0755;
 
-    public $commandClass = Command::class;
+    public $commandClass;
+
+    /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
 
     public function init()
     {
         parent::init();
+        $this->commandClass = Command::className();
         $this->path = Yii::getAlias($this->path);
         if (!is_dir($this->path)) {
             FileHelper::createDirectory($this->path, $this->dirMode, true);
@@ -149,6 +159,8 @@ class Queue extends CliQueue
         flock($file, LOCK_EX);
         $content = stream_get_contents($file);
         $data = $content === '' ? [] : unserialize($content);
+
+        $excep = null;
         try {
             $result = call_user_func($callback, $data);
             $newContent = serialize($result);
@@ -158,9 +170,15 @@ class Queue extends CliQueue
                 fwrite($file, $newContent);
                 fflush($file);
             }
-        } finally {
-            flock($file, LOCK_UN);
-            fclose($file);
+        } catch (Exception $e) {
+            $excep = $e;
+        }
+        
+        flock($file, LOCK_UN);
+        fclose($file);
+
+        if($excep) {
+            throw($excep);
         }
     }
 }

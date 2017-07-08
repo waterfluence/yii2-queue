@@ -34,10 +34,7 @@ class Queue extends CliQueue
     public $exchangeName = 'exchange';
     public $exchangeType = self::EXCHANGE_DIRECT;
 
-    /**
-     * @var string command class name
-     */
-    public $commandClass = Command::class;
+    public $commandClass;
 
     /**
      * @var AMQPStreamConnection
@@ -49,12 +46,22 @@ class Queue extends CliQueue
     private $channel;
 
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @inheritdoc
      */
     public function init()
     {
         parent::init();
-        Event::on(BaseApp::class, BaseApp::EVENT_AFTER_REQUEST, function () {
+        $this->commandClass = Command::className();
+        Event::on(BaseApp::className(), BaseApp::EVENT_AFTER_REQUEST, function () {
             $this->close();
         });
     }

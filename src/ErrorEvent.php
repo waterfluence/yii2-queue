@@ -15,6 +15,15 @@ namespace zhuravljov\yii\queue;
 class ErrorEvent extends JobEvent
 {
     /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    /**
      * @var \Exception
      */
     public $error;

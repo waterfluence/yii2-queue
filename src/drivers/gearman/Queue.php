@@ -25,7 +25,22 @@ class Queue extends CliQueue
     /**
      * @var string command class name
      */
-    public $commandClass = Command::class;
+    public $commandClass;
+
+    /**
+     * Returns the fully qualified name of this class.
+     * @return string the fully qualified name of this class.
+     */
+    public static function className()
+    {
+        return get_called_class();
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->commandClass = Command::className();
+    }
 
     /**
      * Runs all jobs from gearman-queue.
